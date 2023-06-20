@@ -2,6 +2,18 @@
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+## About the app
+
+The app calls the google books api with the query the user enters. It fetches a maximum of 5 results.
+
+The app has mainly only two components, BookSearch that handles the search of the books and displaying them. The other component is ReadingList which displays the books the user saves for reading, the data is stored in local storage.
+
+Also two basic tests are added to make sure the components can render
+
+## Future Scope
+
+The app can be improved UX and styling wise. Also the search inputs can be a component in itself.
+
 ## Available Scripts
 
 In the project directory, you can run:
@@ -44,15 +56,3 @@ You don’t have to ever use `eject`. The curated feature set is suitable for sm
 You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
 To learn React, check out the [React documentation](https://reactjs.org/).
-
-## About the app
-
-The app calls the google books api with the query the user enters. It fetches a maximum of 5 results.
-
-The app has mainly only two components, BookSearch that handles the search of the books and displaying them. The other component is ReadingList which displays the books the user saves for reading, the data is stored in local storage.
-
-Also two basic tests are added to make sure the components can render
-
-## Scope
-
-The app can be improved UX and styling wise. Also the search inputs can be a component in itself.
