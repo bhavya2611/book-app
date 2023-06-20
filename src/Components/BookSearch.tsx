@@ -1,5 +1,5 @@
 import React, { useState, ChangeEvent, MouseEvent } from "react";
-import axios from "axios";
+import { getBooksData } from "../helper/helper";
 
 interface Book {
   id: string;
@@ -8,19 +8,17 @@ interface Book {
   publisher: string;
 }
 
-type BooksSearchProps = { callBackFn: () => void };
+type BooksSearchProps = { callBackFn?: () => void };
 
 const BooksSearch: React.FC<BooksSearchProps> = ({ callBackFn }) => {
   const [query, setQuery] = useState<string>("");
   const [books, setBooks] = useState<Book[]>([]);
+  const [loading, setLoading] = useState(false);
 
   const handleSearch = async () => {
+    setLoading(true);
     try {
-      const response = await axios.get(
-        `https://www.googleapis.com/books/v1/volumes?q=${query}&maxResults=5`
-      );
-      const { items } = response.data;
-
+      const items = await getBooksData(query);
       const formattedBooks: Book[] = items.map((item: any) => ({
         id: item.id,
         title: item.volumeInfo.title,
@@ -29,8 +27,10 @@ const BooksSearch: React.FC<BooksSearchProps> = ({ callBackFn }) => {
       }));
 
       setBooks(formattedBooks);
-    } catch (error) {
-      console.error("Error fetching books:", error);
+      setLoading(false);
+    } catch (e) {
+      console.log(e);
+      setLoading(false);
     }
   };
 
@@ -45,7 +45,7 @@ const BooksSearch: React.FC<BooksSearchProps> = ({ callBackFn }) => {
       );
       const updatedReadingList = [...readingList, book];
       localStorage.setItem("readingList", JSON.stringify(updatedReadingList));
-      callBackFn();
+      callBackFn && callBackFn();
     };
 
   return (
@@ -55,7 +55,7 @@ const BooksSearch: React.FC<BooksSearchProps> = ({ callBackFn }) => {
         <button onClick={handleSearch}>Search</button>
       </div>
 
-      <h2>Search Results</h2>
+      <h2>{loading ? "Loading Search Results ...." : "Search Results"}</h2>
       <div className='book-list'>
         <div>
           <b>Book Title</b>
@@ -84,16 +84,6 @@ const BooksSearch: React.FC<BooksSearchProps> = ({ callBackFn }) => {
           </div>
         ))}
       </div>
-      {/* {books.map((book) => (
-        <div key={book.id}>
-          <h3>{book.title}</h3>
-          <p>Author: {book.author}</p>
-          <p>Publisher: {book.publisher}</p>
-          <button onClick={handleAddToReadingList(book)}>
-            Add to Reading List
-          </button>
-        </div>
-      ))} */}
     </div>
   );
 };

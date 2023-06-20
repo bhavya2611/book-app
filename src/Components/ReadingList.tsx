@@ -7,7 +7,7 @@ interface Book {
   publisher: string;
 }
 
-type ReadingListProps = { update: boolean };
+type ReadingListProps = { update?: boolean };
 
 const ReadingList: React.FC<ReadingListProps> = ({ update }) => {
   const [readingList, setReadingList] = useState<Book[]>([]);
