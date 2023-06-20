@@ -1,5 +1,5 @@
 import { render, screen } from "@testing-library/react";
-import BooksSearch from "../components/BookSearch";
+import BooksSearch from "../Components/BookSearch";
 
 describe("BooksSearch", () => {
   it("should render input field and search button", () => {

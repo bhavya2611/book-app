@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import BooksSearch from "./components/BookSearch";
-import ReadingList from "./components/ReadingList";
+import BooksSearch from "./Components/BookSearch";
+import ReadingList from "./Components/ReadingList";
 import "./App.css";
 
 const App: React.FC = () => {
